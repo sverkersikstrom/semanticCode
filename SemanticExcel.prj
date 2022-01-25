@@ -1,0 +1,266 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="2571178595" file="/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel.prj" location="/Users/sverkersikstrom/Documents/MATLAB" name="SemanticExcel" preferred-package-location="/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="MATLAB Compiler for Standalone Applications">
+    <param.appname>SemanticExcel</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.guid />
+    <param.installpath.string>/SemanticExcel/</param.installpath.string>
+    <param.installpath.combo>option.installpath.systemwideapp</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.intermediate>${PROJECT_ROOT}/SemanticExcel/for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}/SemanticExcel/for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}/SemanticExcel/for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.server.ctf>${PROJECT_ROOT}/SemanticExcel/for_testing/.ctf</param.server.ctf>
+    <param.server.readme>${PROJECT_ROOT}/SemanticExcel/for_testing/readme.txt</param.server.readme>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.required.mcr.products>
+      <item>35000</item>
+      <item>35001</item>
+    </param.required.mcr.products>
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>true</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.server.ctf />
+      <param.server.readme />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/startCompile.m</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/GibbsSamplerAT.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/GibbsSamplerAT.mexmaci64</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/GibbsSamplerLDA.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/GibbsSamplerLDA.mexmaci64</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/WriteTopics.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/WriteTopicsMult.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/ext_programs/mac/topictoolbox/exampleAT1.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/LDA.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/add2space.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/addComments.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/addText2space.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/average_vector.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/average_vector_random.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/beep2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/binary_cluster.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/calculate_bigram.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/cell2string.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/check_if_saved.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/chi2test.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/chi2testArray.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/clusterSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/commandOrData_Callback.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/convertCharacter.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/covariates.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/cprintf.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/createConcept.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/createSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/createSpaceFromContext.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/db2space.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/db2struct.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/even.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/fetch2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/fetch2Cache.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/findEmptySpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/fixStringLength.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/fixchar.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/fixpropertyname.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getContextIndex.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getContexts.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getHandles.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getIndexCategory.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getInfo.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getNewSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getPar.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getProperty.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getReportCommand.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getSetProperty.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getText.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getWord.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getWordClassCash.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getWordFromUser.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getX.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getXword.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/getdb_parameters.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/index2word.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/initSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/inputdlg2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/inputdlg3.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/inputwords.fig</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/inputwords.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/insert2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/isalpha_num.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/keywordsTest.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/makespacefile.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/mergeSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/mkHash.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/mkfreq.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/myprint.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/nancorr.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/nancorr2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/newReport_Callback.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/newfigure.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/ngram.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/normalizeSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/parameter.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/parse_json.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/plotDifference.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/plotSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/plotWordcount.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/pointbiserial.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/predictReg.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/prediction.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/predictionMake.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/print_mem.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/print_nearest_associations_s.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/progress.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/questdlg2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/regress2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/regression.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/remove_words_now.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/reportUpdateCol.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/reportUpdateRow.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/resultsVariables.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/sX.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/saveDefault.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/saveReport.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/saveSpace.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semantic.fig</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semantic.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticDiffOneLeaveOut.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticSearch.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticTest.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticTest2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticTestProperty.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/semanticTestPropertyMany.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/setInfo.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/setInfoPar.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/setProperty.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/setPropertyFromTimeFile.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/setReportData.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/set_word_property_from_variables.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/showOutput.fig</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/showOutput.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/similarity.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/split2sentence.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/statisticOnGroupsOfIdentifers.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/strcmp2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/struct2Db.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/struct2string.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/struct2text.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/structCopy.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/structSelect.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/test.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/testSpaceQuality.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/text2index.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/text2space.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/textread2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/train.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/translate.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/ttest2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/uigetfile2.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/updateContext.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/word2index.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/wordstring2vector.m</file>
+      <file>/Users/sverkersikstrom/Dropbox/semantic/semanticCode/zTransform.m</file>
+    </fileset.resources>
+    <fileset.package>
+      <file>/Users/sverkersikstrom/Dropbox/ngram/spaceSwedish2.mat</file>
+      <file>/Users/sverkersikstrom/Dropbox/ngram/spaceenglish.mat</file>
+    </fileset.package>
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}/SemanticExcel/for_testing" name="SemanticExcel.app" optional="false">/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel/for_testing/SemanticExcel.app</file>
+      <file location="${PROJECT_ROOT}/SemanticExcel/for_testing" name="splash.png" optional="false">/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/SemanticExcel/for_testing" name="readme.txt" optional="true">/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}/SemanticExcel/for_testing" name="run_SemanticExcel.sh" optional="false">/Users/sverkersikstrom/Documents/MATLAB/SemanticExcel/for_testing/run_SemanticExcel.sh</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2014b.app</root>
+      <toolboxes>
+        <toolbox name="fixedpoint" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.10.5</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

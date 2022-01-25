@@ -1,0 +1,5 @@
+_word	pappa	_associates	_context	_cond		
+mamma	0.75659 	  dotter 0.78 pappa 0.76 mor 0.74 syster 0.68 familj 0.64 far 0.64 sambo 0.64 pappan 0.62 dottern 0.61 hemma 0.58   	 			
+_context1	1 	0.51135 	pappa 	1		
+_context2	0.64514 	0.75659 	mamma är snäll  	2		
+						

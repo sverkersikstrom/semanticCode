@@ -1,0 +1,69 @@
+function [results out]=semanticTestPropertyMany(s,data,properties,label,data2,properties2,label2);
+%data (index),properties (index),label (text) are cell arrays including
+%if data2,properites2,label2 are not used as input, then make the matrix squared
+if nargin<5
+    squared=1;
+    data2=data;
+else
+    squared=0;
+end
+if nargin<6
+    properties2=properties;
+end
+if nargin<5
+    label2=label;
+end
+
+N=length(data);
+N2=length(data2);
+
+results='';
+for j1=1:N
+    for j2=1:N2
+        if nargin<4
+            label{j1}=[data{min(j1,length(data))}.input_clean '(' s.fwords{properties.index(ji)} ')'];%min(j1,length(properties.index))
+        end
+        if j1==j2 & squared
+        elseif j1>j2 %& squared
+            out{j2,j1}=out{j1,j2};
+        else
+            out{j1,j2}=semanticTestProperty(s,data{j1},data2{j2},properties.index(j1),properties2.index(j2),label{j1},label2{j2});
+            results=[results char(13) out{j1,j2}.results];
+        end
+    end
+end
+
+if length(s.par.resultsVariables)==0;
+    if isfield(out{1,2},'pCorrelation')
+        s.par.resultsVariables='pCorrelation';
+    else
+        s.par.resultsVariables='p';
+    end
+end
+r=sprintf('%s\t',s.par.resultsVariables);
+for j1=1:N2
+    r=[r sprintf('%s\t',label2{j1})];
+end
+r=[r sprintf('\n')];
+
+
+for j1=1:N
+    r=[r sprintf('%s\t',label{j1})];
+    for j2=1:N2
+        if j1==j2 & squared
+            r=[r sprintf('-\t')];
+        else
+            %if j1<j2
+            [tmp tmp resultsString]=resultsVariables(out{j1,j2},s.par.resultsVariables);
+            r=[r sprintf('%s\t',resultsString)];
+            %else
+            %    [tmp tmp resultsString]=resultsVariables(out{j2,j1},s.par.resultsVariables);
+            %    r=[r sprintf('%s\t',resultsString)];
+            %end
+        end
+    end
+    r=[r sprintf('\n')];
+end
+fprintf('%s',r);
+results=[r sprintf('\n') results];
+1;

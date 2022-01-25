@@ -1,0 +1,1 @@
+_word	_context	pressrelease	year

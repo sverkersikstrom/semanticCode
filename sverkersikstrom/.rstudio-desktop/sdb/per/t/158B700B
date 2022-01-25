@@ -1,0 +1,17 @@
+{
+    "contents" : "#Installing FFmpeg:\n\n1. Type `./configure` to create the configuration. A list of configure\noptions is printed by running `configure --help`.\n\n    `configure` can be launched from a directory different from the FFmpeg\nsources to build the objects out of tree. To do this, use an absolute\npath when launching `configure`, e.g. `/ffmpegdir/ffmpeg/configure`.\n\n2. Then type `make` to build FFmpeg. GNU Make 3.81 or later is required.\n\n3. Type `make install` to install all binaries and libraries you built.\n\nNOTICE\n------\n\n - Non system dependencies (e.g. libx264, libvpx) are disabled by default.\n",
+    "created" : 1453861545433.000,
+    "dirty" : true,
+    "encoding" : "ASCII",
+    "folds" : "",
+    "hash" : "1418595206",
+    "id" : "158B700B",
+    "lastKnownWriteTime" : 1434746675,
+    "path" : "~/Downloads/ffmpeg-2.8.5/INSTALL.md",
+    "project_path" : null,
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "markdown"
+}

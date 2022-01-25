@@ -1,0 +1,278 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="2762423165" file="/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic.prj" location="/Users/Albin/Desktop/From HD/semanticExcel/semanticCode" name="semantic" preferred-package-location="/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic/for_redistribution" preferred-package-type="package.type.app" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>semantic</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.guid />
+    <param.installpath.string>/semantic/</param.installpath.string>
+    <param.installpath.combo>option.installpath.systemwideapp</param.installpath.combo>
+    <param.logo />
+    <param.install.notes>In the following directions, replace MCR_ROOT by the directory where the MATLAB Runtime is installed on the target machine.
+
+If the environment variable DYLD_LIBRARY_PATH is undefined, set it to the concatenation of the following strings:
+
+    MCR_ROOT/v90/runtime/maci64:
+    MCR_ROOT/v90/sys/os/maci64:
+    MCR_ROOT/v90/bin/maci64
+
+If it is defined, set it to the concatenation of these strings:
+
+    ${LD_LIBRARY_PATH}: 
+    MCR_ROOT/v90/runtime/maci64:
+    MCR_ROOT/v90/sys/os/maci64:
+    MCR_ROOT/v90/bin/maci64</param.install.notes>
+    <param.target.install.notes />
+    <param.intermediate>${PROJECT_ROOT}/semantic/for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}/semantic/for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}/semantic/for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.required.mcr.products>
+      <item>35000</item>
+      <item>35010</item>
+      <item>35001</item>
+    </param.required.mcr.products>
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>true</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>false</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.target.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/semantic.m</file>
+    </fileset.main>
+    <fileset.resources />
+    <fileset.package>
+      <file>${PROJECT_ROOT}/getPar.m</file>
+      <file>${PROJECT_ROOT}/getPar.mat</file>
+      <file>${PROJECT_ROOT}/spaceenglish.mat</file>
+    </fileset.package>
+    <fileset.depfun>
+      <file>${PROJECT_ROOT}/LDA.m</file>
+      <file>${PROJECT_ROOT}/add2space.m</file>
+      <file>${PROJECT_ROOT}/addComments.m</file>
+      <file>${PROJECT_ROOT}/addText2space.m</file>
+      <file>${PROJECT_ROOT}/average_vector.m</file>
+      <file>${PROJECT_ROOT}/average_vector_random.m</file>
+      <file>${PROJECT_ROOT}/beep2.m</file>
+      <file>${PROJECT_ROOT}/binary_cluster.m</file>
+      <file>${PROJECT_ROOT}/calculate_bigram.m</file>
+      <file>${PROJECT_ROOT}/cell2string.m</file>
+      <file>${PROJECT_ROOT}/check_if_saved.m</file>
+      <file>${PROJECT_ROOT}/chi2test.m</file>
+      <file>${PROJECT_ROOT}/chi2testArray.m</file>
+      <file>${PROJECT_ROOT}/clusterSpace.m</file>
+      <file>${PROJECT_ROOT}/commandOrData_Callback.m</file>
+      <file>${PROJECT_ROOT}/convertCharacter.m</file>
+      <file>${PROJECT_ROOT}/covariates.m</file>
+      <file>${PROJECT_ROOT}/cprintf.m</file>
+      <file>${PROJECT_ROOT}/createConcept.m</file>
+      <file>${PROJECT_ROOT}/createSpace.m</file>
+      <file>${PROJECT_ROOT}/createSpaceFromContext.m</file>
+      <file>${PROJECT_ROOT}/db2space.m</file>
+      <file>${PROJECT_ROOT}/db2struct.m</file>
+      <file>${PROJECT_ROOT}/even.m</file>
+      <file>${PROJECT_ROOT}/fetch2.m</file>
+      <file>${PROJECT_ROOT}/fetch2Cache.m</file>
+      <file>${PROJECT_ROOT}/findEmptySpace.m</file>
+      <file>${PROJECT_ROOT}/fixStringLength.m</file>
+      <file>${PROJECT_ROOT}/fixchar.m</file>
+      <file>${PROJECT_ROOT}/fixpropertyname.m</file>
+      <file>${PROJECT_ROOT}/getContextIndex.m</file>
+      <file>${PROJECT_ROOT}/getContexts.m</file>
+      <file>${PROJECT_ROOT}/getHandles.m</file>
+      <file>${PROJECT_ROOT}/getIndexCategory.m</file>
+      <file>${PROJECT_ROOT}/getInfo.m</file>
+      <file>${PROJECT_ROOT}/getNewSpace.m</file>
+      <file>${PROJECT_ROOT}/getPar.m</file>
+      <file>${PROJECT_ROOT}/getProperty.m</file>
+      <file>${PROJECT_ROOT}/getReportCommand.m</file>
+      <file>${PROJECT_ROOT}/getSetProperty.m</file>
+      <file>${PROJECT_ROOT}/getSpace.m</file>
+      <file>${PROJECT_ROOT}/getText.m</file>
+      <file>${PROJECT_ROOT}/getWord.m</file>
+      <file>${PROJECT_ROOT}/getWordClassCash.m</file>
+      <file>${PROJECT_ROOT}/getWordFromUser.m</file>
+      <file>${PROJECT_ROOT}/getX.m</file>
+      <file>${PROJECT_ROOT}/getXword.m</file>
+      <file>${PROJECT_ROOT}/getdb_parameters.m</file>
+      <file>${PROJECT_ROOT}/index2word.m</file>
+      <file>${PROJECT_ROOT}/initSpace.m</file>
+      <file>${PROJECT_ROOT}/inputdlg2.m</file>
+      <file>${PROJECT_ROOT}/inputdlg3.m</file>
+      <file>${PROJECT_ROOT}/inputwords.fig</file>
+      <file>${PROJECT_ROOT}/inputwords.m</file>
+      <file>${PROJECT_ROOT}/insert2.m</file>
+      <file>${PROJECT_ROOT}/isalpha_num.m</file>
+      <file>${PROJECT_ROOT}/keywordsTest.m</file>
+      <file>${PROJECT_ROOT}/makespacefile.m</file>
+      <file>${PROJECT_ROOT}/mergeSpace.m</file>
+      <file>${PROJECT_ROOT}/mkHash.m</file>
+      <file>${PROJECT_ROOT}/mkfreq.m</file>
+      <file>${PROJECT_ROOT}/mycheck2.m</file>
+      <file>${PROJECT_ROOT}/myprint.m</file>
+      <file>${PROJECT_ROOT}/nancorr.m</file>
+      <file>${PROJECT_ROOT}/nancorr2.m</file>
+      <file>${PROJECT_ROOT}/newReport_Callback.m</file>
+      <file>${PROJECT_ROOT}/newfigure.m</file>
+      <file>${PROJECT_ROOT}/ngram.m</file>
+      <file>${PROJECT_ROOT}/normalizeSpace.m</file>
+      <file>${PROJECT_ROOT}/parameter.m</file>
+      <file>${PROJECT_ROOT}/parse_json.m</file>
+      <file>${PROJECT_ROOT}/plotDifference.m</file>
+      <file>${PROJECT_ROOT}/plotSpace.m</file>
+      <file>${PROJECT_ROOT}/plotWordcount.m</file>
+      <file>${PROJECT_ROOT}/pointbiserial.m</file>
+      <file>${PROJECT_ROOT}/predictReg.m</file>
+      <file>${PROJECT_ROOT}/prediction.m</file>
+      <file>${PROJECT_ROOT}/predictionMake.m</file>
+      <file>${PROJECT_ROOT}/print_mem.m</file>
+      <file>${PROJECT_ROOT}/print_nearest_associations_s.m</file>
+      <file>${PROJECT_ROOT}/progress.m</file>
+      <file>${PROJECT_ROOT}/questdlg2.m</file>
+      <file>${PROJECT_ROOT}/regress2.m</file>
+      <file>${PROJECT_ROOT}/regression.m</file>
+      <file>${PROJECT_ROOT}/remove_words_now.m</file>
+      <file>${PROJECT_ROOT}/reportUpdateCol.m</file>
+      <file>${PROJECT_ROOT}/reportUpdateRow.m</file>
+      <file>${PROJECT_ROOT}/resultsVariables.m</file>
+      <file>${PROJECT_ROOT}/sX.m</file>
+      <file>${PROJECT_ROOT}/saveDefault.m</file>
+      <file>${PROJECT_ROOT}/saveReport.m</file>
+      <file>${PROJECT_ROOT}/saveSpace.m</file>
+      <file>${PROJECT_ROOT}/semantic.fig</file>
+      <file>${PROJECT_ROOT}/semanticDiffOneLeaveOut.m</file>
+      <file>${PROJECT_ROOT}/semanticSearch.m</file>
+      <file>${PROJECT_ROOT}/semanticTest.m</file>
+      <file>${PROJECT_ROOT}/semanticTest2.m</file>
+      <file>${PROJECT_ROOT}/semanticTestProperty.m</file>
+      <file>${PROJECT_ROOT}/semanticTestPropertyMany.m</file>
+      <file>${PROJECT_ROOT}/setInfo.m</file>
+      <file>${PROJECT_ROOT}/setInfoPar.m</file>
+      <file>${PROJECT_ROOT}/setProperty.m</file>
+      <file>${PROJECT_ROOT}/setPropertyFromTimeFile.m</file>
+      <file>${PROJECT_ROOT}/setReportData.m</file>
+      <file>${PROJECT_ROOT}/set_word_property_from_variables.m</file>
+      <file>${PROJECT_ROOT}/showOutput.fig</file>
+      <file>${PROJECT_ROOT}/showOutput.m</file>
+      <file>${PROJECT_ROOT}/similarity.m</file>
+      <file>${PROJECT_ROOT}/split2sentence.m</file>
+      <file>${PROJECT_ROOT}/statisticOnGroupsOfIdentifers.m</file>
+      <file>${PROJECT_ROOT}/strcmp2.m</file>
+      <file>${PROJECT_ROOT}/struct2Db.m</file>
+      <file>${PROJECT_ROOT}/struct2string.m</file>
+      <file>${PROJECT_ROOT}/struct2text.m</file>
+      <file>${PROJECT_ROOT}/structCopy.m</file>
+      <file>${PROJECT_ROOT}/structSelect.m</file>
+      <file>${PROJECT_ROOT}/test.m</file>
+      <file>${PROJECT_ROOT}/testSpaceQuality.m</file>
+      <file>${PROJECT_ROOT}/text2index.m</file>
+      <file>${PROJECT_ROOT}/text2space.m</file>
+      <file>${PROJECT_ROOT}/textread2.m</file>
+      <file>${PROJECT_ROOT}/train.m</file>
+      <file>${PROJECT_ROOT}/translate.m</file>
+      <file>${PROJECT_ROOT}/ttest2.m</file>
+      <file>${PROJECT_ROOT}/uigetfile2.m</file>
+      <file>${PROJECT_ROOT}/updateContext.m</file>
+      <file>${PROJECT_ROOT}/word2index.m</file>
+      <file>${PROJECT_ROOT}/wordstring2vector.m</file>
+      <file>${PROJECT_ROOT}/zTransform.m</file>
+    </fileset.depfun>
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}/semantic/for_testing" name="semantic.app" optional="false">/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic/for_testing/semantic.app</file>
+      <file location="${PROJECT_ROOT}/semantic/for_testing" name="splash.png" optional="false">/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/semantic/for_testing" name="readme.txt" optional="true">/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}/semantic/for_testing" name="run_semantic.sh" optional="false">/Users/Albin/Desktop/From HD/semanticExcel/semanticCode/semantic/for_testing/run_semantic.sh</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/Applications/MATLAB_R2015b.app</root>
+      <toolboxes>
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>true</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.11</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>maci64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
