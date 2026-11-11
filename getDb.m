@@ -1,5 +1,5 @@
 function db=getDb(update,db_instance)
-persistent dbSave 
+persistent dbSave lastCheck
 % The database password is read from a file outside the code, so it is never in the repository.
  
 if nargin<1
@@ -8,12 +8,26 @@ end
 if nargin<2
     db_instance = 'space2';
 end
+if not(isempty(dbSave)) & not(isvalid(dbSave)) %The connection object was closed and deleted
+    dbSave=[];
+end
 if not(isempty(dbSave)) & not(strcmp(dbSave.Instance,db_instance))
     update=1;
 end
+%The database server closes a connection that has been idle for a long time, so test it at most once a minute
+if not(update) & not(isempty(dbSave)) & length(dbSave.Message)==0 & (isempty(lastCheck) | now-lastCheck>60/86400)
+    try
+        fetch(dbSave,'SELECT 1');
+    catch
+        update=1;
+    end
+    lastCheck=now;
+end
 if isempty(dbSave) | update | length(dbSave.Message)>0
     if not(isempty(dbSave))
-        close(dbSave);
+        try
+            close(dbSave);
+        end
     end
      
     if findstr(pwd,'/Users/sverkersikstrom')>0 %Sverker use
