@@ -121,6 +121,12 @@ info.par=setInfoPar(s.par);
 if info.length>0 & s.par.normalizeSpace
     x=x/info.length;
 end
+% A semantic scale made with a Hugging Face model has as many dimensions as the model,
+% not as the space, so the whole vector is kept with the model name. getXBERT uses it.
+if isfield(info,'specialword') & any(info.specialword==[7 12]) & isfield(s.par,'BERT') & not(strcmpi(s.par.BERT,'LSA'))
+    info.xBERT=x(:)';
+    info.BERTmodel=s.par.BERT;
+end
 if s.Ndim>length(x)
    fprintf('Adding zeros to the stored vector\n')
    if size(x,1)>size(x,2)

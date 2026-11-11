@@ -1,7 +1,7 @@
 function [d databaseName]=db2struct(databaseName,table,where,select_struct)
     % Read struct from database with optitional where statment
     if ischar(databaseName)
-        databaseName = database(databaseName,'DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/' databaseName ]);
+        databaseName = database(databaseName,'root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/' databaseName ]);
     end
     query = ['SHOW COLUMNS FROM  `' databaseName.Instance '`.`' table '`'];
     columns = fetch(databaseName,query);

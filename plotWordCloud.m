@@ -1,6 +1,5 @@
 function [out,h,s]=plotWordCloud(s,indexText,numbers,par,labels,userNames)
 %persistent plotRemoveWords;
-%YOUR_PASSWORD
 out.init=[];
 out.pSemanticScale='';
 out.figureNote=sprintf('Figure note: ');
@@ -136,7 +135,7 @@ else %Used in excelServer
     %s.par.optimzeDimensionsConservative=0;%Makes traning faster, less accurate?
     %s.par.NleaveOuts=5;
     s.par.fixProblemWithSemanticTestWordClouds=1;%Forces words in wordclouds to be in the 'right' side for semanticTest
-    s.par.plotRemoveCharacters=':/\';
+    %s.par.plotRemoveCharacters=':/\';
     s.par.saveSemanticScale=0;
     if strcmpi(s.par.callfrom,'3W') & length(s.par.plotRemoveWords)==0
         %For 3W, remove these words        
@@ -420,7 +419,7 @@ else
         data{3}.p=NaN(1,length(data{1}.z));
         data{3}.scale='';
     end
-    
+    out.data=data;
     %Do for cluster
     if not(strcmpi(s.par.plotCloudType,'category')) & s.par.plotCluster
         %Cluster
@@ -816,6 +815,7 @@ if s.par.plotAutoSaveFigure
     end
     
     figFile=['figure/Figure ' regexprep(s.languagefile,'.mat','') '-' s.par.variableToCreateSemanticRepresentationFrom '-' s.par.plotTestType '-' labels2 '-' s.par.plotCloudType plotCategory s.par.condition_string];
+    figFile=figFile(1:min(length(figFile),70));
     if s.par.plotWordcloud
         figFile=[figFile '-Cloud'];
     else
@@ -824,6 +824,7 @@ if s.par.plotAutoSaveFigure
     if s.par.plotCluster
         figFile=[figFile '-Cluster=' num2str(s.par.Ncluster)];
     end
+    figFile=regexprep(figFile,'\.',' ');
     saveas(h.Number,figFile, 'fig');
     hgx(h.Number,'',[figFile '.png']);
     fprintf('%s\n',out.figureNote);
@@ -1264,6 +1265,7 @@ if strcmpi(par.plotCloudType,'category')
             data.z(j)=data.f(j)./std(x(j,:));
         end
     else
+        if size(numbers,1)==1 & size(numbers,2)>1 numbers=numbers';end
         for j=1:N(1);%Correlation x
             [data.z(j) data.p(j)]=nancorr(x(j,:)',numbers);
             data.f(j)=abs(data.z(j));

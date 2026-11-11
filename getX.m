@@ -450,7 +450,7 @@ if par.preprocessWithSVD & not(par.trainReplaceMissingDataWithMean) & isnan(mean
     par.trainReplaceMissingDataWithMean=1;
 end
 
-if par.trainReplaceMissingDataWithMean & isnan(mean(mean(xnorm)))
+if par.trainReplaceMissingDataWithMean & isnan(mean(mean(xnorm))) & length(xnorm)>0
     N=size(xnorm);
     d.train.xmean(N(2))=NaN;
     count=0;rlabels=[];
@@ -532,7 +532,8 @@ if par.preprocessWithSVD
             tmp1=xnorm* inv(train.V');
         catch
             fprintf('Is this correct?\n')
-            tmp1=xnorm(1:min(N),1:min(N))*inv(train.V(1:min(N),:)');
+            tmp1=xnorm(:,1:min(N))*inv(train.V(1:min(N),:)');%2021-11-30
+            %tmp1=xnorm(1:min(N),1:min(N))*inv(train.V(1:min(N),:)');
         end
         Sinv=inv(train.S(1:min(N),1:min(N)));
         U=tmp1(:,1:min(N))*Sinv;

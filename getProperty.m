@@ -288,7 +288,9 @@ for j=1:length(index2)
                     end
                     x1=d.x(1,:);x2=d.x(2:size(d.x,1),:);
                 end
-                r(j)=sum(x2(j,:).*x1)*l+c;
+                if size(x2,1)>0
+                    r(j)=sum(x2(j,:).*x1)*l+c;
+                end
                 %r(j)=sum(s.x(index2(j),:).*s.x(index1,:))*l+c;
             end
         end

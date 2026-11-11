@@ -139,14 +139,11 @@ y(find(isnan(y)))=setNan(y);%Set Nan to 'median';
 z(find(isnan(z)))=setNan(z);%Set Nan to 'median';
 
 if s.par.plotBonferroni==2
-    for i=1:length(indexQ)
-        keywordsPlotPvalue(indexQ(i))=s.par.keywordsPlotPvalue/i;
-    end
-    d.correctionType='Holme''s';
+    d.correctionType='Holm''s';
     if isempty(indexQ)
         selected=NaN;
     else
-        selected=class(indexQ) & p(indexQ)<=keywordsPlotPvalue(indexQ);
+        selected=class(indexQ) & holmAdjust(p(indexQ))<=s.par.keywordsPlotPvalue;
     end
 else
     if s.par.plotBonferroni==1
@@ -765,7 +762,7 @@ end
 if dimensions==3
     h=text(x0,y0-YlimC(2)/2,z0,index2word(s,[fixchar(labels{1}) ' (' axisType1 ')']),'Rotation',0,'FontSize',fontsize,'Color',c1,'HorizontalAlignment','center');
 else
-    h=text(x0,y0-YlimC(2)/2,index2word(s,[fixchar(labels{1}) ' (' axisType1 ')']),'Rotation',0,'FontSize',fontsize,'Color',c1*0);%'HorizontalAlignment','center',
+    h=text(x0,y0-YlimC(2)/2,struct2string(index2word(s,[fixchar(labels{1}) ' (' axisType1 ')'])),'Rotation',0,'FontSize',fontsize,'Color',c1*0);%'HorizontalAlignment','center',
 end
 plot(x0+a1*[0 0.5],y0+a2*[0 0]     ,'Color', c1,'LineWidth',1)
 plot(x0+a1*[.4 .5],y0+[+a2/8 0],'Color', c1,'LineWidth',1)

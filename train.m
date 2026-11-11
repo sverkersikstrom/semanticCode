@@ -109,8 +109,8 @@ trainMultipleText=size(wordsIndex,1)>1 & size(wordsIndex,2)>1;
 par.trainMultipelNumericalSize=size(numericalData,2);
 if strcmpi(s.par.trainType,'multipleInput') s.par.trainOnCrossValidationOfMultipleTexts=s.par.variableToCreateSemanticRepresentationFrom; end
 
-if s.par.variableToCreateSemanticRepresentationFromRepeted
-    variableToCreateSemanticRepresentationFrom=string2cell(s.par.variableToCreateSemanticRepresentationFrom);
+if strcmpi(s.par.trainType,'singel')
+    variableToCreateSemanticRepresentationFrom={s.par.variableToCreateSemanticRepresentationFrom};
 else
     variableToCreateSemanticRepresentationFrom=string2cell(s.par.variableToCreateSemanticRepresentationFrom);
 end
@@ -126,7 +126,7 @@ if not(length(variableToCreateSemanticRepresentationFrom)<=1 & size(y,2)==1) & n
     
     s.par.trainPropertySave=propertySave;
     res='';
-    resR=sprintf('Summary of r-values:\nTextvariabel\t');
+    resR=sprintf('Summary of r-values:\nMeasure\t');
     if size(propertySave,1)>size(propertySave,2) propertySave=propertySave';end
     if nargin<3
         resR=[resR cell2string(propertyPredict.word',char(9))];
@@ -145,13 +145,14 @@ if not(length(variableToCreateSemanticRepresentationFrom)<=1 & size(y,2)==1) & n
             if isfield(s.par,'parTrain')
                 s.par=structCopy(s.par,s.par.parTrain{i});
             end
-            if nargin<3
-                propertySave{i}=fixpropertyname(['pred' s.par.trainModelName propertyPredict.word{i} s.par.variableToCreateSemanticRepresentationFrom ]);
-            end
-            s.par.i=i;
+            %if nargin<3
             if length(propertySave)<i propertySave{i}=['_prediction' num2str(i)];end
-            fprintf('Training %d (of %d) on text %s %d (of %d): %s\n',i,length(propertySave),s.par.variableToCreateSemanticRepresentationFrom,l,length(variableToCreateSemanticRepresentationFrom),propertySave{i});
-            [s info{l,i}]=train(s,y(:,i), propertySave{i},wordsIndex,group,numericalData,covariates,indexSubtract);
+            propertySave2{i}=fixpropertyname([propertySave{i} s.par.trainModelName s.par.variableToCreateSemanticRepresentationFrom ]);
+            %propertySave2{i}=fixpropertyname(['pred' s.par.trainModelName propertyPredict.word{i} s.par.variableToCreateSemanticRepresentationFrom ]);
+            %end
+            s.par.i=i;
+            fprintf('Training %d (of %d) on text %s %d (of %d): %s\n',i,length(propertySave),s.par.variableToCreateSemanticRepresentationFrom,l,length(variableToCreateSemanticRepresentationFrom),propertySave2{i});
+            [s info{l,i}]=train(s,y(:,i), propertySave2{i},wordsIndex,group,numericalData,covariates,indexSubtract);
             if info{l,i}.p<.05/length(variableToCreateSemanticRepresentationFrom)/size(y,2)
                 sig='**'; 
             elseif info{l,i}.p<.05
@@ -159,7 +160,7 @@ if not(length(variableToCreateSemanticRepresentationFrom)<=1 & size(y,2)==1) & n
             else
                 sig=''; 
             end
-            resR=[resR sprintf('%.3f%s\t',info{l,i}.r,sig)];
+            resR=[resR sprintf('%.3f%s (%.4f)\t',info{l,i}.r,sig,info{l,i}.p)];
             r(l,i)=info{l,i}.r;
             pred(i,l,:)=info{l,i}.pred;
         end
@@ -852,7 +853,7 @@ if isempty(xnorm) | length(y)<1 %<=
     info.w.p=[];
     info.w.word=[];
     return
-end
+end 
 
 
 if par.timeSerie
@@ -1444,9 +1445,11 @@ info.trainDataStat=infoSave.trainDataStat;
 info.predDataStat=infoSave.predDataStat;
 info.pred=nan(1,length(isNotNan));
 info.data=nan(1,length(isNotNan));
+info.index=nan(1,length(isNotNan));
 
 info.pred(isNotNan)=pred;
 info.data(isNotNan)=y;
+info.index(isNotNan)=index;
 
 
 
@@ -1563,14 +1566,12 @@ if s.par.trainSemanticKeywordsFrequency>0
         w.p=tcdf(-abs(full(z)),length(predWall)-2);
     end
     if s.par.keywordCorrectionType==0 %bonferroni
-        pW=w.p*length(predWall);
+        % One test per word, so multiply by the number of words tested, not by the number of word occurrences
+        pW=min(1,w.p*sum(not(isnan(w.p))));
     elseif s.par.keywordCorrectionType==2 %uncorrected
         pW=w.p;
-    else %Holme's
-        [~,indexSort ]=sort(f1(indexW),'descend');
-        for i=1:length(indexSort)
-            pW(indexSort(i))=w.p(indexSort(i))/i;
-        end
+    else %Holm
+        pW=holmAdjust(w.p);
     end
     [ ~,indexSort]=sort(z,'descend');
     i=0;

@@ -319,10 +319,12 @@ else
     global rootPath
     
     extDir = [rootPath '/ext_programs/' systemName '/'];
-    % 1) Create unixCommand and execute external program
-    unixCommand = ['echo -n > ' par.envObj.library random_filename...
-        ' && printf "' hunposFormattedText '" >> ' random_filename...
-        ' && ' extDir 'hunpos-tag ' extDir model...
+    % 1) Write the words to the file with MATLAB, not with printf in the shell.
+    %    The words come from users, and in a shell command they could run commands.
+    fid=fopen([par.envObj.library random_filename],'w');
+    fprintf(fid,'%s',strrep(hunposFormattedText,'\n',char(10)));
+    fclose(fid);
+    unixCommand = [extDir 'hunpos-tag ' extDir model...
         ' < ' par.envObj.library random_filename];
     
     test = 0;

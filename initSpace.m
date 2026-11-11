@@ -22,10 +22,7 @@ s.wordclass=[];
 s.data=1;
 s.rand=rand;
 s.classlabel={    'temporal'    'adjective'    'conjunction etc'    'determinerare'    'countingwords'    'nouns'    'proper name'    'pronouns'    'adverb'    'verb'    'prepositions'    'other'    'errors'};
-disp('----');
 
-disp(nargin);
-disp('----');
 if nargin>0
     if isempty(s.par.languageCode)
         s.par.languageCode=command.get('languagecode');

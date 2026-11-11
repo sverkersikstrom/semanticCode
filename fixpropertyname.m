@@ -4,7 +4,7 @@ if 0 & nargin>=2 & isfield(s.par,'useUnderScoreInName')
 else
     global useUnderScoreInName
     if isempty(useUnderScoreInName)
-        useUnderScoreInName=0;
+        useUnderScoreInName=1;%Changed default value of this 2022-03-08!
     end
 end
 if isnumeric(a);a=num2str(a);end

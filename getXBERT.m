@@ -2,6 +2,10 @@ function [s, xnorm,BERTData]=getXBERT(s,index,BERTData);
 if nargin<3
     BERTData=[];
 end
+%The model name is passed to the shell, so only names that huggingface.co allows are accepted
+if isempty(regexp(s.par.BERT,'^[A-Za-z0-9][A-Za-z0-9._-]*(/[A-Za-z0-9][A-Za-z0-9._-]*)?$','once'))
+    error('The model name "%s" is not a valid model name on huggingface.co',s.par.BERT)
+end
 save2file=1;
 mem=1;
 if s.par.parfor
@@ -14,7 +18,7 @@ fprintf('BERT: %d %d\n',length(index),maxN)
 if not(isfield(s,'extraData')) s.extraData='';end
 if s.par.parfor bak='.bakp'; else bak='.bak';end
 if save2file
-    file=[s.datafile '-BERT.mat'];
+    file=[s.datafile '-' regexprep(s.par.BERT,'/','-') '.mat'];
     if file(1)=='-'; file=file(2:length(file));end
     if isempty('BERTData') | not(isfield(BERTData,'file')) | not(strcmp(BERTData.file,file))
         BERTData.file=file;
@@ -22,7 +26,7 @@ if save2file
             file2=regexprep(file,'.mat',bak);
             a1=dir(file);
             a2=dir(file2);
-            if exist(file2) & a2.bytes>a1.bytes
+            if exist(file2) & not(isempty(a2)) & a2.bytes>a1.bytes
                 movefile(file2,file);
             end
             load(file)
@@ -48,8 +52,12 @@ if length(index)>maxN
     xnorm=[];
     for i=1:maxN:length(index)
         [s, x,BERTData]=getXBERT(s,index(i:min(length(index),i+maxN-1)),BERTData);
+        if size(x,2)==1 
+            x=[x NaN(size(x,1),size(xnorm,2)-1)];
+        end
         xnorm=[xnorm; x];
     end
+    return;
 end
 
 %Get texts
@@ -109,7 +117,21 @@ if not(isempty(find(missing)))
             x(find(group==i),:)=xcell{i};
         end
     else
+        indexMissing=find(missing);
         x=text2bert(text(find(missing)),s.par.BERT,rootPath);
+        if not(length(indexMissing)==size(x,1))
+            text2=text;
+            for i=1:length(text)
+                j=length(text{i});
+                if j>800
+                    fprintf('Possibel problem is that this text may be too long: %s\n',text{i})
+                    fprintf('REMOVING %d CHARACTERS\n',length(text{i})-800)
+                    text2{i}=text{i}(1:800);
+                    beep
+                end
+            end
+            x=text2bert(text2(find(missing)),s.par.BERT,rootPath);
+        end 
     end
     
     %Store BERT results
@@ -133,14 +155,24 @@ if not(isempty(find(missing)))
     end
 end
 xnorm(find(set2NaN),:)=NaN;
+% A semantic scale has no text. It has the vector that was stored when it was made.
+for i=find(set2NaN)
+    if index(i)>0 & index(i)<=length(s.info) & isfield(s.info{index(i)},'xBERT')
+        if strcmp(s.info{index(i)}.BERTmodel,s.par.BERT)
+            xnorm(i,1:length(s.info{index(i)}.xBERT))=s.info{index(i)}.xBERT;
+        else
+            fprintf('The semantic scale %s was made with %s and cannot be used with %s\n',s.fwords{index(i)},s.info{index(i)}.BERTmodel,s.par.BERT);
+        end
+    end
+end
 
 if save2file & not(isempty(find(missing))) %(now-t)*24*60>.5
     if exist(BERTData.file)
         a=dir(BERTData.file);
-        if a.bytes>1000
+        if not(isempty(a)) & a.bytes>1000
             movefile(BERTData.file,regexprep(BERTData.file,'.mat',bak))
         else
-            stop
+            1;%stop
         end
     end
     save(BERTData.file,'BERTData')
@@ -163,7 +195,43 @@ for i=1:length(text)
 end
 fclose(f);
 %Run BERT
-if new %New can be parallised
+if 1
+    %system('/Users/sverkersikstrom/opt/anaconda3/bin/python test.py')
+    outfile=[regexprep(file,'.csv','.txt')];
+    
+    if findstr(pwd,'/Users/sverkersikstrom')==1
+        pythonPath='/Users/sverkersikstrom/opt/anaconda3/bin/python';
+    else
+        pythonPath='/usr/bin/python';
+    end
+    a=system(['KMP_DUPLICATE_LIB_OK=TRUE ' pythonPath ' ' rootPath '/semanticCode/file2BERT.py ' file ' ' outfile ' ' BERT]);
+    if not(a==0) | not(exist(outfile))
+        delete(file);
+        if exist(outfile) delete(outfile);end
+        error('The model "%s" could not be run. Check that the name is spelled exactly as on huggingface.co',BERT)
+    end
+    f=fopen(outfile);
+    i=0;
+    while(not(feof(f)))
+        i=i+1;
+        string=fgets(f);
+        x(i,:)=eval(string);
+    end
+    fclose(f);
+    if not(length(text)==size(x,1))
+        beep
+        fprintf('Missmatch in lenght of text and size semantic representation\n');
+        for i=1:length(text)
+            j=length(text{i});
+            if j>800
+                fprintf('Possibel problem is that this text may be too long: %s\n',text{i})
+            end
+        end
+    end
+    delete(file);
+    delete(outfile);
+
+elseif new %New can be parallised
     if isempty(findstr(getenv('PATH'),':/usr/local/bin'))
         setenv('PATH',[getenv('PATH') ':/usr/local/bin'])
     end
@@ -183,6 +251,7 @@ if new %New can be parallised
     delete(RFile);
     delete([rootPath '/' file]);
     delete([rootPath '/file2' file]);
+    x=data(:,7:size(data,2));
 else %Old not parallesed
     if strcmpi(s.par.BERT,'bert_base_uncased')
         model='file2BERT.R';
@@ -193,5 +262,5 @@ else %Old not parallesed
     
     %Read BERT data
     [words, data, dim, labels,labelsFixed,dataType]=textread2([rootPath '/BERT.csv'],0);
+    x=data(:,7:size(data,2));
 end
-x=data(:,7:size(data,2));

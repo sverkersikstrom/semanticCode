@@ -428,7 +428,7 @@ save([datafile],'d')
 function [N,con]=countWords(word,con)
 if nargin<2 con=[];end
 if isempty(con)
-    con = database('mypersonality','DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/DB_INSTANCE']);
+    con = database('mypersonality','root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/mypersonality']);
 end
 databaseName='mypersonality';
 file='user_status';
@@ -868,7 +868,7 @@ end
 %file=['demog' '_' dbTo where];%dbFrom
 file=['data/' where(2:end-3)];%dbFrom
 property='_predvalence';
-con = database('mypersonality','DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/DB_INSTANCE']);
+con = database('mypersonality','root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/mypersonality']);
 columns=fetch(con,['SHOW COLUMNS FROM  `' dbFrom]);
 dAdd='';
 if exist([file '.mat'])
@@ -967,7 +967,7 @@ if nargin<3
 end
 select_struct=[];
 step=1000;
-con = database('mypersonality','DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/DB_INSTANCE']);
+con = database('mypersonality','root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/mypersonality']);
 
 %        columns=fetch(con,['SHOW columns from `' con.Instance '`.`' dbFrom '`']);
 
@@ -1044,7 +1044,7 @@ if nargin<2
     par=[];
 end
 databaseName='mypersonality';
-con = database(databaseName,'DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/DB_INSTANCE']);
+con = database(databaseName,'root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/mypersonality']);
 d=NaN;
 step=50000;
 par.Nmax=[1 step];

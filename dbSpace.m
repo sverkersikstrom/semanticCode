@@ -219,3 +219,6 @@ function createTable(db,table,textType,lang);
 fprintf('\nCreating table %s\n',table);
 query=['CREATE TABLE `' table '` ( `document` text NOT NULL, `id` char(51) NOT NULL, `lang` text NOT NULL,`f` float NOT NULL, `datestr` text NOT NULL, `xdata` text NOT NULL, `info` mediumtext NOT NULL, `type` text NOT NULL, `wordclass` int NOT NULL, `specialword` int NOT NULL, `public` int NOT NULL, `user` char(50) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;'];
 exec(db,query,0);
+
+
+

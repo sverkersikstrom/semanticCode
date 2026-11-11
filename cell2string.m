@@ -1,4 +1,7 @@
 function s=cell2string(c,seperator)
+if ischar(c)
+    s=c;return
+end
 if nargin<2
     seperator=' ';
 end

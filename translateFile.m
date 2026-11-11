@@ -30,51 +30,50 @@ end
 f=fopen(file,'r','n', 'UTF-8');
 fout=fopen(outFile,'w','n', 'UTF-8');
 i=0;tTranslated='';
-if findstr(file,'.xlsx')
-    [a, data, dim, labels]=textread2(file);
-    fprintf(fout,'%s\n',cell2string(labels',char(9)));
-    for i=1:size(a,1)
-        if not(isempty(columns))
-            for j=columns
-                a{i,j}=convertCharacter(a{i,j});
-                a{i,j} = gtranslate([],a{i,j}, destLanguage, sourceLanguage,[],wordByWord);
-            end
-            t=regexprep(cell2string(a(i,:),char(9)),char(10),'');
-            tTranslated=convertCharacter(t);
-        else
-            t=regexprep(cell2string(a(i,:),char(9)),char(10),'');
-            t=convertCharacter(t);
-            tTranslated = gtranslate([],t, destLanguage, sourceLanguage,[],wordByWord);
+%if findstr(file,'.xlsx')
+[a, data, dim, labels]=textread2(file);
+fprintf(fout,'%s\n',cell2string(labels',char(9)));
+for i=1:size(a,1)
+    if columns %not(isempty(columns))
+        for j=1:size(a,2) %columns
+            a{i,j}=convertCharacter(num2str(a{i,j}));
+            a{i,j} = gtranslate([],a{i,j}, destLanguage, sourceLanguage,[],wordByWord);
         end
-        fprintf(fout,'%s\n',tTranslated);
-        if even(i,50); fprintf('.');end
+        t=regexprep(cell2string(a(i,:),char(9)),char(10),'');
+        tTranslated=convertCharacter(t);
+    else
+        t=regexprep(cell2string(a(i,:),char(9)),char(10),'');
+        t=convertCharacter(t);
+        tTranslated = gtranslate([],t, destLanguage, sourceLanguage,[],wordByWord);
     end
-else
-    
-    while not(feof(f))
-        if 1
-            t=fgets(f);
-        else
-            t=[];
-            while not(feof(f)) & length(t)<600
-                t=[t fgets(f)];
-            end
-        end
-        i=i+1;if even(i,50); fprintf('.');end
-        %t(find(t==65533))=' ';
-        t=regexprep(t,char(10),' ');
-        t=regexprep(t,char(13),' ');
-        if i==1960
-            1;
-        end
-        if 0
-            fprintf(fout,'%s\t%d\n',t,i);
-        else
-            tTranslated = gtranslate([],t, destLanguage, sourceLanguage,[],wordByWord);
-            fprintf(fout,'%s\n',tTranslated);
-        end
-    end
+    fprintf(fout,'%s\n',tTranslated);
+    if even(i,50); fprintf('.');end
 end
+% else    
+%     while not(feof(f))
+%         if 1
+%             t=fgets(f);
+%         else
+%             t=[];
+%             while not(feof(f)) & length(t)<600
+%                 t=[t fgets(f)];
+%             end
+%         end
+%         i=i+1;if even(i,50); fprintf('.');end
+%         %t(find(t==65533))=' ';
+%         t=regexprep(t,char(10),' ');
+%         t=regexprep(t,char(13),' ');
+%         if i==1960
+%             1;
+%         end
+%         if 0
+%             fprintf(fout,'%s\t%d\n',t,i);
+%         else
+%             tTranslated = gtranslate([],t, destLanguage, sourceLanguage,[],wordByWord);
+%             fprintf(fout,'%s\n',tTranslated);
+%         end
+%     end
+% end
 fclose(f);
 fclose(fout);
 fprintf('Done\n')

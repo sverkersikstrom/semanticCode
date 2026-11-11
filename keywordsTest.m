@@ -750,11 +750,9 @@ stats.pBonferroni=nan(1,length(stats.p));
 stats.pBonferroni(indexs)=psave.*pcorr;
 include =ones(1,length(stats.p));
 include(indexs)=p<1;
-%Holmes
-[tmp index]=sort(f1+f2,'descend');
-pcorr(index)=1:length(index);
+%Holm
 stats.pholmes=nan(1,length(stats.p));
-stats.pholmes(indexs)=psave.*pcorr;
+stats.pholmes(indexs)=holmAdjust(psave);
 
 if s.par.keywordCorrectionType==0 %Bonferroni
     stats.pcorrected=stats.pBonferroni;

@@ -179,7 +179,8 @@ url = 'https://translation.googleapis.com/language/translate/v2';
 %ok=0;i=0;
 %while not(ok) & i<10
 try
-    response = urlread(url, 'get', {'key', 'XXX YOUR_KEY XXX','q', inputString, 'target', destLanguage, 'source', sourceLanguage});
+    % The API key is kept outside the code
+    response = urlread(url, 'get', {'key', strtrim(fileread('/etc/semanticexcel/google_translate_key')),'q', inputString, 'target', destLanguage, 'source', sourceLanguage});
     ok=1;
 catch
     fprintf('Error in Google translate.\n')

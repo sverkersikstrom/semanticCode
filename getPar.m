@@ -18,7 +18,6 @@ handles=getHandles;
 
 %category Context generations
 par.variableToCreateSemanticRepresentationFrom='_text';%skipse%Generate one semantic representation from one, or several, text(s) stored in this/these property/properties
-par.trainType='oneByOne';%options oneByOne multipleInput%Type of predictions
 par.variableToCreateSemanticRepresentationFromRepeted=0;%options 0 1%skipse%Repeate the semantic representations above with single texts
 par.trainOnCrossValidationOfMultipleTexts='';%Conducting one training for each texts, and train on the cross-validated predictions.
 par.predictionProperties='';%Numerical predictor(s) used in training
@@ -168,7 +167,7 @@ par.plotColorCodesFor='p';%options p value%Color codes for p or values.
 par.plotColorLimits=[];%Set limits for color coding
 par.plotFontname='Helvetica';%options listfonts%Fontname used in wordclouds
 par.fontsizeLimits=parameter(handles.plotWordcountMinMaxFontsize);%Upper and lower limits for fontsize in plotting
-par.plotRemoveCharacters='';%Remove parts these characters from the plotted words
+par.plotRemoveCharacters=':/\';%Remove parts these characters from the plotted words
 par.plotXlabel='';%Label on x-axis
 par.plotYlabel='';%Label on y-axis
 par.plotZlabel='';%Label on z-axis
@@ -195,6 +194,7 @@ par.update_report_automatic=strcmpi(get(handles.update_report_automatic,'checked
 
 %category train
 par.trainModelName='';%skipse%Model name produced by traning
+par.trainType='singel';%options singel multipleInput%Type of predictions
 par.regressionCategory=strcmpi(get(handles.regressionCategory,'checked'),'on');
 par.bootstrapSubject=strcmpi(get(handles.bootstrap_subject,'checked'),'on');
 par.extendedOutput=strcmpi(get(handles.extendedOutput,'checked'),'on');
@@ -287,7 +287,7 @@ par.NgramPOS=strcmpi(get(handles.NgramPOS,'checked'),'on');%Use Google Ngram wor
 par.parfor=0;%options 0 1%Use paralell processing
 par.generalUseDefaultSettings=0;%options 0 1%Use default settings, so that no input dialog is used. Use Analyse/Set parameters to change settings
 par.saveCrossValidationData=1;
-par.useUnderScoreInName=0;
+par.useUnderScoreInName=1;%Changed default value of this 2022-03-08
 
 %category associates
 par.number_of_ass2= parameter(handles.number_of_ass2);%Number of semantic associates to print
@@ -343,7 +343,8 @@ global rootPath;
 par.rootPath=rootPath;
 
 %category BERT
-par.BERT='LSA';%options LSA bert_base_multilingual_cased bert_base_uncased%Use BERT model instead of LSA
+par.BERT='LSA';%options LSA bert-base-multilingual-cased bert-base-uncased roberta-base xlm-roberta-base%Use model instead of LSA
+par.BERTname='';%Any model from huggingface.co, written exactly as on the site, e.g. sentence-transformers/paraphrase-multilingual-mpnet-base-v2. Overrides BERT above
 par.DLATK=0;%options 0 1%Use DLATK (not used)
 par.DLATKparameter1='dlatkInterface.py -d space2 -t msgs -c user_id --add_ngrams -n 1';%DLATK1 dlatkInterface.py -d space2 -t msgs -c user_id --add_ngrams -n 1
 par.DLATKparameter2='dlatkInterface.py -d space2 -t msgs -c user_id -f ''feat$1gram$msgs$user_id$16to16'' --feat_occ_filter --set_p_occ 0.05';%DLATK2 dlatkInterface.py -d space2 -t msgs -c user_id -f ''feat$1gram$msgs$user_id$16to16'' --feat_occ_filter --set_p_occ 0.05
@@ -401,6 +402,7 @@ end
 if not(isempty(setParPersistent))
     par=structCopy(par,setParPersistent);
 end
+if length(par.BERTname)>0; par.BERT=strtrim(par.BERTname);end
 d.setParPersistent=setParPersistent;
 
 if nargout>1

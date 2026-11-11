@@ -4318,7 +4318,7 @@ end
 % function database_test
 % %dbase='space';field='data';
 % dbase='sedermera';field='archive_latin1';
-% conn = database(dbase,'DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/' dbase])
+% conn = database(dbase,'root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/' dbase])
 % results = fetch(conn, ['SELECT * FROM  `' field '` LIMIT 0 , 30'])
 % 
 % 
@@ -4339,7 +4339,7 @@ end
 % class_loader = current_thread.getContextClassLoader();
 % class = java.lang.Class.forName('com.mysql.jdbc.Driver', true, class_loader);
 % database_url = 'jdbc:mysql://localhost/test2';
-% conn = java.sql.DriverManager.getConnection(database_url, 'DB_USERNAME', 'DB_PASSWORD');
+% conn = java.sql.DriverManager.getConnection(database_url, 'root', 'root');
 % stmt = conn.createStatement();
 % query = 'ALTER TABLE freq ADD X2 FLOAT NOT NULL';
 % result = stmt.execute(query);
@@ -4447,7 +4447,7 @@ fclose(out);
 % 
 % 
 % p.database='betula'
-% conn = database(p.database,'DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/' p.database]);
+% conn = database(p.database,'root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/' p.database]);
 % 
 % p.file='Total_080924.txt';
 % f=fopen(p.file,'r');
@@ -4476,7 +4476,7 @@ fclose(out);
 % class_loader = current_thread.getContextClassLoader();
 % class = java.lang.Class.forName('com.mysql.jdbc.Driver', true, class_loader);
 % database_url = ['jdbc:mysql://localhost/' p.database];
-% conn = java.sql.DriverManager.getConnection(database_url, 'DB_USERNAME', 'DB_PASSWORD');
+% conn = java.sql.DriverManager.getConnection(database_url, 'root', 'root');
 % stmt = conn.createStatement();
 % for i=2:length(p.labels)
 %     query = ['ALTER TABLE data ADD ' p.labels{i} '  FLOAT NOT NULL'];
@@ -4494,7 +4494,7 @@ fclose(out);
 % while not(isempty(conn_s.message)) & psave<3310
 %     psave=psave+1;
 %     fprintf('trying to open port %d\n',psave);
-%     conn_s = database('space2','DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:' num2str(psave) '/DB_INSTANCE']);
+%     conn_s = database('space2','root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:' num2str(psave) '/space2']);
 % end
 % if psave>=3310 fprintf('error in communicating with database\n'); end
 % p=num2str(psave);
@@ -4735,7 +4735,7 @@ end
 
 
 function db_insert_stockprices
-conn_p = database('stock','DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://DB_HOST:PORT/stock']);
+conn_p = database('stock','root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:3306/stock']);
 
 labels=lower(textread('closeingprices9507_labels.txt','%s'));
 price=textread('closeingprices9507.txt');
@@ -4784,7 +4784,7 @@ fastinsert(conn_p,'price',{'stock';'time';'price';'missing'},exdata2)
 % class_loader = current_thread.getContextClassLoader();
 % class = java.lang.Class.forName('com.mysql.jdbc.Driver', true, class_loader);
 % database_url = 'jdbc:mysql://localhost/space';
-% conn = java.sql.DriverManager.getConnection(database_url, 'DB_USERNAME', 'DB_PASSWORD');
+% conn = java.sql.DriverManager.getConnection(database_url, 'root', 'root');
 % stmt = conn.createStatement();
 % for i=1:100
 %     query = ['ALTER TABLE data ADD X' num2str(i) '  FLOAT NOT NULL'];
@@ -4953,7 +4953,7 @@ anew=a-c1*kc;
 function m=test_findmaxid
 dbase='dump6';
 p.port='3301';
-conn = database(dbase,'DB_USERNAME','DB_PASSWORD','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:' p.port '/' dbase]);
+conn = database(dbase,'root','root','com.mysql.jdbc.Driver',['jdbc:mysql://localhost:' p.port '/' dbase]);
 m=zeros(1,10);
 for i=1:8
     results = fetch(conn,['SELECT resourceId, MAX( autoId ) FROM dump' num2str(i) '.archive_latin1 GROUP BY resourceId LIMIT 0 , 30;']);

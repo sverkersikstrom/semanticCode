@@ -21,8 +21,6 @@ if nargin<2
     lang='en';
 end
 if length(lang)<=4
-disp(lang);
-pause(5);
     lang=getSpaceName(lang);
 end 
 
@@ -252,8 +250,16 @@ elseif not(isempty(find(nanIndexText)))
         indexTest=find(not(isnan(specialword)));
         for i=1:length(indexTest)
             tmp=find(strcmpi(document,words{indexTest(i)}));
+            %info is numbered by the words fetched from the database (nanIndex), not by all words.
+            %A word that was already in the space has its information in the space.
+            fetched=find(nanIndex==indexTest(i));
+            if not(isempty(fetched))
+                wordInfo=info{fetched(1)};
+            else
+                wordInfo=s.info{word2index(s,words(indexTest(i)))};
+            end
             for j=1:length(tmp)
-                info2{tmp(j)}=info{indexTest(i)};
+                info2{tmp(j)}=wordInfo;
             end
         end
     end

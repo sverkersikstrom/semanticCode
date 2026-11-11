@@ -248,8 +248,8 @@ else %Un-paired test
     
 end
 if not(s.par.excelServer) & s.par.saveCrossValidationData %Remove for speed
-    [d, index,out.associates]=print_nearest_associations_s(s,type,xmean1-xmean2,'descend','',o1,o2);
-    [d, index,out.associatesFurthest]=print_nearest_associations_s(s,type,xmean2-xmean1,'descend','',o2,o1);
+    [~,~,out.associates]=print_nearest_associations_s(s,type,xmean1-xmean2,'descend','',o1,o2);
+    [~,~,out.associatesFurthest]=print_nearest_associations_s(s,type,xmean2-xmean1,'descend','',o2,o1);
     try
         index12=[index1 index2];
         x12=[out.x1 out.x2];

@@ -1,4 +1,9 @@
 function [d, index,text,out,neighbours]=print_nearest_associations_s(s,type,x,order,header,o1,o2);
+if not(strcmp(s.par.BERT,'LSA'))
+    fprintf('Cant not print associates for %s\n',s.par.BERT)
+    d=[];index=[];text='';out=[];neighbours=[];
+    return
+end
 if nargin<4
     order='descend';
 end

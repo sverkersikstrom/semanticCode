@@ -1,7 +1,7 @@
 function [x,word,N]=getLIWC(s,index)
 persistent sSave
 persistent id
-   
+    
 s.id=s.languagefile;
 if isempty(id)
     k=0;
@@ -47,7 +47,7 @@ if k<1
         save(file,'sTmp');
     end
 end
-  
+   
 if 1
     fByIndex2=sparse(length(index),length(sSave{k}.fwords));
     for i=1:length(index)

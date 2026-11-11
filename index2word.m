@@ -23,7 +23,7 @@ textTrans=text;
 if not(s.par.translate==1) | (nargin==3 & isnumeric(language1) & language1==0)
     return %Do not translate!
 end
-textTrans = gtranslate(s,text, '', '',[],1);
+[~,textTrans] = gtranslate(s,text, '', '',[],1);
 
 %Replace words
 if length(s.par.plotReplaceWords)>0

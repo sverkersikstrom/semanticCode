@@ -27,8 +27,8 @@ if findstr(pwd,'sverker')>0 %| isdeployed
     d.words_plot_dir='';
     
     %warning off
-    mypath='/Users/semantic/';
-    %mypath='/Users/semantic/';
+    mypath='/Users/sverkersikstrom/Dropbox/semantic/';
+    %mypath='/Users/sverkersikstrom 1/Dropbox/Dropbox/semantic/';
     if not(isdeployed)
         addpath([mypath '']);
         addpath([mypath 'semanticCode']);
@@ -43,7 +43,7 @@ if findstr(pwd,'sverker')>0 %| isdeployed
     %javaaddpath('/mysql-connector-java-5.1.34-bin.jar')
     
     %javaaddpath([mypath 'matlabjarfiles/mysql-connector-java-8.0.11.jar'])
-    javaaddpath(['/Users/.../mysql-connector-java-5.1.6-bin.jar']);
+    javaaddpath(['/Users/sverkersikstrom/Documents/Dokuments/Artiklar_in_progress/Semantic_spaces/ArtiCapital/Eureka2/mysql-connector-java-5.1.6-bin.jar']);
 
 else
     javaaddpath('/home/semantic/matlabjarfiles/json_simple-1.1.jar')
@@ -266,7 +266,7 @@ while true
                 if isempty(selectioncriteria) == false
                     x=javaLinkedList2double(selectioncell);
                     formula=selectioncriteria;%Choice formula to select
-                    eval(['selection=find(' formula ');']);
+                    selection=selectByFormula(x,formula);
                     answer=num2str(std(javaLinkedList2double(selection)),'%.2f');
                 else
                     answer=num2str(std(javaLinkedList2double),'%.2f');
@@ -301,7 +301,7 @@ while true
                 if isempty(selectioncriteria) == false
                     x=javaLinkedList2double(selectioncell);
                     formula=selectioncriteria;%Choice formula to select
-                    eval(['selection=find(' formula ');']);
+                    selection=selectByFormula(x,formula);
                     [h, p, ci, stats]=ttest2(javaLinkedList2double(selection),javaLinkedList2double(selection),.05,tail);
                 else
                     [h, p, ci, stats]=ttest2(javaLinkedList2double(items1),javaLinkedList2double(items2),.05,tail);
@@ -326,6 +326,7 @@ while true
         %corr function - (fast: not parellized)
         command = meexcel.getCommandCorr();
         items1    = command.get('items1');
+
         try
             if isempty(items1) == false
                 document=command.get('documentid');
@@ -336,13 +337,13 @@ while true
                 if isempty(selectioncriteria) == false
                     x=javaLinkedList2double(selectioncell);
                     formula=selectioncriteria;%Choice formula to select
-                    eval(['selection=find(' formula ');']);
+                    selection=selectByFormula(x,formula);
                     [r p]=nancorr((javaLinkedList2double(selection))',(javaLinkedList2double(selection))');
                 else
                     %Use javaLinkedList2double to conver to numeric value:
                     [r p]=nancorr(javaLinkedList2double(items1)',javaLinkedList2double(items2)');
                 end
-                answer=sprintf('r=%.2f, p=%.4f\n',r,p);
+                answer=sprintf('r=%.4f, p=%.4f\n',r,p);
                 m = java.util.HashMap;
                 m.put('results',answer);
                 m.put('refkey',refkey);
@@ -591,7 +592,7 @@ while true
                 toc
             end
         end
-        excelServerErrors;
+        %excelServerErrors;
         count=count+1;
         if count>60*5; count=0; fprintf('\n');end
     catch err
@@ -610,9 +611,6 @@ try
     if isempty(command) == false
         rowidentifierOrText = command.get('identifierOrText');
         %if not(isempty(rowidentifierOrText))
-disp('------')
-disp(command.get('languagecode'));
-disp('------')
         document = command.get('documentSpace');
         refkey  = command.get('refkey');
         documentlanguage=command.get('documentlanguage');
@@ -733,6 +731,8 @@ try
         s.par.getPropertyShow=command.get('semanticDistance');
         if length(index2)==1
             [~, answer1,s]= getProperty(s,index2,index1);
+        elseif not(length(index2)==length(index1))
+            error('The two ranges must have the same number of cells, or the second range must be a single cell (here %d and %d cells)',length(index1),length(index2));
         else
             for i=1:length(index1)
                 [~, answer1(i),s]= getProperty(s,index2(i),index1(i));
@@ -1169,10 +1169,10 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
-        [s info]=train(s,trainData(selection)',name,wordindexes(selection)',group(selection),numericalDatas(selection),covariatesData(selection));
+        selection=selectByFormula(x,formula);
+        [s info]=train(s,trainData(selection),name,wordindexes(selection),group(selection),numericalDatas(selection),covariatesData(selection));
     else
-        [s info]=train(s,trainData',name,wordindexes,group,numericalDatas,covariatesData);
+        [s info]=train(s,trainData,name,wordindexes,group,numericalDatas,covariatesData);
     end
     if iscell(info)
         info=info{end};
@@ -1325,7 +1325,7 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
+        selection=selectByFormula(x,formula);
         [s info]=clusterSpace(s,myindex(selection),clusteramount,clustercategory);
     else
         [s info]=clusterSpace(s,myindex,clusteramount,clustercategory);
@@ -1389,7 +1389,7 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
+        selection=selectByFormula(x,formula);
         if isempty(yaxel) == false
             [h s]=plotSpace(s,data(selection),indexAxel(1),indexAxel(2));
         else
@@ -1478,7 +1478,7 @@ try
             end
             x=str2double(x1);
             formula=selectioncriteria;%Choice formula to select
-            eval(['selection=find(' formula ');']);
+            selection=selectByFormula(x,formula);
             if isempty(command.get('instancey')) == false
                 [s h out1]=plotWordcount(s,index(selection),indexAxel(1),indexAxel(2)); %wordset1=words to plot, wordd1=propery defining median split on x-axel, wordd2=propery defining median split on y-axel,
             else
@@ -1515,7 +1515,7 @@ try
             end
             x=str2double(x1);
             formula=selectioncriteria;%Choice formula to select
-            eval(['selection=find(' formula ');']);
+            selection=selectByFormula(x,formula);
             if isempty(yaxel) == false
                 [s h out1 out2]=plotWordcount(s,index(selection),xdata(selection),ydata(selection));
             else
@@ -1542,15 +1542,17 @@ try
     plotUrlStr = strcat(plotUrlStr, d.download_plot_url,refkey,num2str(j+1),'.png');
     
     plotText = '';
-    for j=1:length(h)-1
-        plotText = strcat(plotText, out1.figureText{h(j)},'|');
+    if isfield(out1,'figureText')
+        for j=1:length(h)-1
+            plotText = strcat(plotText, out1.figureText{h(j)},'|');
+        end
+        plotText = strcat(plotText, out1.figureText{h(j+1)});
     end
-    plotText = strcat(plotText, out1.figureText{h(j+1)});
     
     
     m = java.util.HashMap;
     results = out1.results;
-    if isempty(yaxel) == false
+    if exist('out2','var') %Only the multiple-value plot with a y-axis returns out2
         results = strcat(results,'|',out2.results);
     end
     
@@ -1616,7 +1618,7 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
+        selection=selectByFormula(x,formula);
         data{1}=setindex1(selection);
     else
         data{1}=setindex1;
@@ -1639,7 +1641,7 @@ try
         
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
+        selection=selectByFormula(x,formula);
         data{2}=setindex1(selection);
     else
         data{2}=setindex1;
@@ -1671,7 +1673,7 @@ try
                 end
                 x=str2double(x1);
                 formula=selectioncriteria;%Choice formula to select
-                eval(['selection=find(' formula ');']);
+                selection=selectByFormula(x,formula);
                 data{k}=setindex1(selection);
             else
                 data{k}=setindex1;
@@ -1742,11 +1744,13 @@ try
     
     [s, setindex1] =getSfromDB(s,documentlanguage,document,refword1,setword1,'update',s.par);%Adds documents referenced with "ref" consiting of text in "text" to the s2-structure, using the langugae in "lang" and we call this document "document"
     [s, setindex2] =getSfromDB(s,documentlanguage,document,refword2, setword2,'update',s.par);%Adds documents referenced with "ref" consiting of text in "text" to the s2-structure, using the langugae in "lang" and we call this document "document"
+    % The checkbox asks for a paired test: row i of the first set is paired with row i of the second
     if isempty(pairedsemantictest) == false && pairedsemantictest=='1'
-        s.par.match_paired_test_on_subject_property=1;
+        s.par.paired_semantic_difference=1;
     else
-        s.par.match_paired_test_on_subject_property=0;
+        s.par.paired_semantic_difference=0;
     end
+    s.par.match_paired_test_on_subject_property=0;
     
     if isempty(selectioncriteria) == false
         x1= {};
@@ -1755,7 +1759,7 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');'])
+        selection=selectByFormula(x,formula);
         if s.par.match_paired_test_on_subject_property
             group1=1:length(setindex1(selection));%User input, with a length that must macth the first set of indexes
             group2=1:length(setindex2(selection));%User input, with a length that must macth the second set of indexes
@@ -1772,7 +1776,7 @@ try
             [out,s]=semanticTest(s,setindex1,setindex2);
         end
     end
-    
+    disp(out);
     m = java.util.HashMap;
     answer=out.results;
     m.put('results',answer);
@@ -1849,7 +1853,7 @@ try
         end
         x=str2double(x1);
         formula=selectioncriteria;%Choice formula to select
-        eval(['selection=find(' formula ');']);
+        selection=selectByFormula(x,formula);
         [out s]=keywordsTest(s,setindex1(selection),setindex2(selection));
     else
         [out s]=keywordsTest(s,setindex1,setindex2);
@@ -1953,6 +1957,8 @@ end
 
 function answer=getCommand3wordsSemantic(meexcel,command,d);
 global figureNote
+global dataTabel
+global dataText
 try
     wordset  = command.get('wordset');
     
@@ -1981,13 +1987,19 @@ try
     refword={};
     textword={};
     index=[];
+disp('-------------');
+disp('getCommand3wordsSemantic');
+disp('----------------');
     for j=1:wordset.size,
         setword{j} = wordset.get(j-1);
         refword{j} = strcat(prefix, refwordset.get(j-1));
         textword{j}='_text';
     end
+disp('Start: getsfdb');
+pause(5);
     [s, index] =getSfromDB(s,documentlanguage,document,refword,setword,'update',s.par);%Adds documents referenced with "ref" consiting of text in "text" to the s2-structure, using the langugae in "lang" and we call this document "document"
-    
+    disp('End: getsfdb');
+
     %number calculation
     numbers = []; %default single dimension
     xdata = {};
@@ -2026,7 +2038,7 @@ try
         numbers{3} = zdata;
     end
     
-    
+disp('Start: confparams');    
     s.par.plotCloudType=plotCloudType;
     s.par.plotCluster=str2num(plotCluster);
     s.par.plotWordcloud=str2num(plotWordcloud);
@@ -2035,11 +2047,15 @@ try
         s.par.plotTestType=plotTestType.get(i-1);
         par{i}=s.par;
     end
-    
+disp('End: confparams');
     [out1,h,s]=plotWordCloud(s,index,numbers,par);
-    figureNote = out1.figureNote;
+    %A plot without results has none of these fields
+    figureNote = ''; dataText = ''; dataTabel = '';
+    if isfield(out1,'figureNote') figureNote = out1.figureNote; end
+    if isfield(out1,'dataText') dataText = out1.dataText; end
+    if isfield(out1,'dataTabel') dataTabel = out1.dataTabel; end
     %fprintf('PLEASE PRINT THIS TEXT ON THE CELL AFTER THE FIGURE!!!! \nIT IS NOT ACCEPTABLE THAT A CHANGE LIKE THIS SHOULD TAKE SO LONG TIME.\nIT REALY STOPS SEVERLA PROJECT THAT THIS IS NOT WORKING!!!!!\n%s\n',figureNote)
-    
+  disp('plotgenerated');
     for i=1:length(h)
         figure(h(i));
         hgx(h(i),strcat(d.download_plot_dir, refkey, plottype, plotCloudType, num2str(plotCluster), num2str(i), '.png'));%Saves the figure to an .eps file!
@@ -2068,6 +2084,9 @@ try
     m.put('refkey',refkey);
     m.put('figUrl', plotFigUrlStr); % By Chintan
     m.put('figureNote', figureNote); % By Chintan
+    m.put('dataText', dataText); % By Chintan
+    m.put('dataTabel', dataTabel); % By Chintan
+
     meexcel.setCommand3wordsSemantic(m);
     %end
 catch err

@@ -1,0 +1,13 @@
+[Unit]
+Description=Predictions of Semantic Measure Model files for SemanticExcel
+After=network.target
+
+[Service]
+Environment=LD_LIBRARY_PATH=/root/streamlit/openssl-1.1.1
+WorkingDirectory=/home/semantic/semanticmatlab/semanticCode
+ExecStart=/opt/hf-venv/bin/python /home/semantic/semanticmatlab/semanticCode/semantic_model_server.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

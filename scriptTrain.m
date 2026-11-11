@@ -64,7 +64,7 @@ elseif iscell(par.langFile)
     langFile=par.langFile;
     for i=1:length(langFile)
         par.langFile=langFile{i};
-        [s par]=scriptTrain(s,par,func);
+        [s par info{i}]=scriptTrain(s,par,func);
     end
     return
 end
@@ -148,7 +148,7 @@ for k=1:length(parInit.func)
         end
         if par.readNorm | length(par.readDataFile)>0
             if par.readNorm
-                s.par.openNormFileMultipel=1;
+                %s.par.openNormFileMultipel=0;
                 s.par.openNormFile='norm';
                 par.readDataFile='norm.xlsx';
             end
@@ -161,7 +161,11 @@ for k=1:length(parInit.func)
     if not(isfield(par,'variableToCreateSemanticRepresentationFrom'))
         par.variableToCreateSemanticRepresentationFrom=s.par.variableToCreateSemanticRepresentationFrom;
     end
-    variableToCreateSemanticRepresentationFrom=string2cell(par.variableToCreateSemanticRepresentationFrom);
+    if isfield(par,'mergeText') & par.mergeText
+        variableToCreateSemanticRepresentationFrom{1}=par.variableToCreateSemanticRepresentationFrom;
+    else
+        variableToCreateSemanticRepresentationFrom=string2cell(par.variableToCreateSemanticRepresentationFrom);
+    end
 
     
     if not(isfield(par,'trainVariables'))
@@ -177,8 +181,8 @@ for k=1:length(parInit.func)
     else
         languagefile=s.par.BERT;
     end
-    filename=[par.func{k} '-' languagefile '-' par.dataFile '-' s.par.condition_string '-' par.variableToCreateSemanticRepresentationFrom(1:min(end,30)) '-' par.trainVariables(1:min(20,length(par.trainVariables))) num2str(keyGenerator(par)) '.txt'];
-    filename=regexprep(filename,char(9),' ');
+    filename=[par.func{k} '-' languagefile '-' par.dataFile '-' s.par.condition_string '-' cell2string(par.variableToCreateSemanticRepresentationFrom(1:min(end,30))) '-' cell2string(par.trainVariables(1:min(20,length(par.trainVariables)))) num2str(keyGenerator(par)) '.txt'];
+    filename=regexprep(filename(1:min(length(filename),70)),char(9),' ');
     
     par.variableToCreateSemanticRepresentationFromRepeted=1;
     %par.extendedOutput=0;
@@ -189,7 +193,8 @@ for k=1:length(parInit.func)
     s.par=structCopy(s.par,par);
     %Load texts
     
-    resultsExist=exist(['results-' filename]) & not(par.redo);
+    file=['results/results-' filename];
+    resultsExist=exist(file) & not(par.redo);
     if isfield(par,'texts')
         texts=par.texts;
     elseif not(resultsExist)
@@ -199,7 +204,7 @@ for k=1:length(parInit.func)
     end
     
     if resultsExist 
-        f=fopen(['results/results-' filename],'r','n','UTF-8');
+        f=fopen(file,'r','n','UTF-8');
         a=[];
         while not(feof(f))
             a=[a fgets(f)];
@@ -474,7 +479,7 @@ for k=1:length(parInit.func)
             %Plot word cloud of all words
             if strcmp(par.func{k},'plot0d') % | strcmpi(par.func{k},'plot')
                 %s.par.plotWordcloud=1;
-                [out,h,s]=plotWordCloud(s,texts.index);
+                [info,h,s]=plotWordCloud(s,texts.index);
             else   
                 %s.par.plotWordcloud=0;
                 %Plot one dimension based on trainvariables
@@ -482,22 +487,22 @@ for k=1:length(parInit.func)
                     if not(isempty(findstr(lower(par.func{k}),'nominal')))
                         plotNominal=s.par.plotNominal;
                         s.par.plotNominal='nominal';
-                        [out,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
+                        [info,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
                         s.par.plotNominal=plotNominal;
                     elseif 0 %Difference between one item and mean of all other items
-                        [out,h,s]=plotWordCloud(s,texts.index,{y(:,i)' - mean(y(:,not(1:size(y,2)==i))')},[],{[yIndex.fwords{i} '-ALL']});
+                        [info,h,s]=plotWordCloud(s,texts.index,{y(:,i)' - mean(y(:,not(1:size(y,2)==i))')},[],{[yIndex.fwords{i} '-ALL']});
                     elseif strcmp(lower(par.func{k}),'plot2d') %2d plot
                         if i==1
-                            [out,h,s]=plotWordCloud(s,texts.index,{y(:,1) y(:,2)},[],yIndex.fwords);
+                            [info,h,s]=plotWordCloud(s,texts.index,{y(:,1) y(:,2)},[],yIndex.fwords);
                         end
-                    elseif strcmp(lower(par.func{k}),'plotliwc') %2d plot
+                    elseif strcmp(lower(par.func{k}),'plotliwc') %LIWC semantic
                         s.par.plotCloudType='category';%options words users category histogram%Plot words, users, or categories
                         s.par.plotCategory='semanticLIWC';%options Functions Clusters Prediction semanticLIWC LIWC Semantic-dimensions Semantic-scales Wordclasses Texts Words Stopwords Variables Norms User-defined%Choose the category of identifiers to plot
-                        [out,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
+                        [info,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
                     else %plot1d
-                        [out,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
+                        [info,h,s]=plotWordCloud(s,texts.index,{y(:,i)'},[],yIndex.fwords(i));
                     end
-                    dataTabel=[dataTabel sprintf('\n%s\t%s\n%s\n\n',variableToCreateSemanticRepresentationFrom{j},yIndex.fwords{i},out.dataTabel);];
+                    dataTabel=[dataTabel sprintf('\n%s\t%s\n%s\n\n',variableToCreateSemanticRepresentationFrom{j},yIndex.fwords{i},info.dataTabel);];
                 end
             end            
         end
@@ -541,9 +546,14 @@ for k=1:length(parInit.func)
         
     elseif strcmpi(par.func{k},'train')
         %Load text variables
-        [yIndex s]=getWord(s,par.trainVariables);
-        %Get training data
-        y=getProperty(s,texts.index,yIndex.index);
+        if isnumeric(par.trainVariables)
+            y=par.trainVariables;
+            yIndex.fwords{1}='';
+        else
+            [yIndex s]=getWord(s,par.trainVariables);
+            %Get training data
+            y=getProperty(s,texts.index,yIndex.index);
+        end
         if isfield(par,'train2medianSplit') & par.train2medianSplit
             y=1*(y>nanmedian(y));
         end
@@ -582,4 +592,4 @@ for k=1:length(parInit.func)
     end
 end
 s.par=parSave;
-beep
+%beep

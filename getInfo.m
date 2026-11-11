@@ -35,7 +35,11 @@ if s.par.variables
     else %set property
         if ischar(newValue)
             try
-                newValue2=eval(regexprep(newValue,char(10),' '));
+                if isempty(newValue)
+                    newValue2=NaN;
+                else
+                    newValue2=eval(regexprep(newValue,char(10),' '));
+                end
             catch
                 fprintf('Error in calculating: %s\n',newValue);
                 newValue2=NaN;

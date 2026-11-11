@@ -32,7 +32,6 @@ if db2space %Read from database
     table=regexprep(s.languagefile,'.mat','');
     name=[table '-' num2str(category)];
     query = ['select `id`, `user`, `info` from  `space2`.`' table '` where `specialword` = ' num2str(category) ' limit 2000' ];
-disp(query);
     try
         r = fetch(getDb,query);
     catch

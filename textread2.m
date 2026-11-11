@@ -44,10 +44,6 @@ if not(isempty(findstr(file,'.xls')))
     dim=col1;
     
 else
-disp('==================');
-disp(file);
-disp('==================');
-
     f=fopen(file,'r','n','UTF-8');
     i=0;
     labels=fgets(f);

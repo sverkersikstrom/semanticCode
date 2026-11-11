@@ -144,7 +144,7 @@ fclose(f);
 
 function struct2db(table,d,db_instance);
 if nargin<3
-    db_instance = 'DB_INSTANCE';
+    db_instance = 'space2';
 end
 dB=getDb(0,db_instance);
 

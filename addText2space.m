@@ -30,6 +30,10 @@ info.index=index;
 %    info.context=cell2string(t);
 %else
 if length(s.par.variableToCreateSemanticRepresentationFrom)>0
+    %The name comes from a parameter, so it is run as code only when it is a field name such as context or a.b
+    if isempty(regexp(variableToCreateSemanticRepresentationFrom,'^[A-Za-z]\w*(\.[A-Za-z]\w*)*$','once'))
+        error('"%s" is not a valid property name',variableToCreateSemanticRepresentationFrom);
+    end
     eval(['info.' variableToCreateSemanticRepresentationFrom '=texts;']);
 end
 %else

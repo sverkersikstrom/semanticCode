@@ -1,3 +1,6 @@
+if not(exist('s','var')) %The caller may fail before s is set
+    s=[];
+end
 save2file=exist('save2file.txt');
 if isfield(s,'error') & isstruct(s.error)
     s=rmfield(s,'error');
@@ -54,6 +57,20 @@ if (findstr(answer,'Error')==1 & abs(d.ErrorTime-now)>.02/24) | (save2file & len
         else
             file=['MatlabError' fixpropertyname(a.message) nowString];
             fprintf('Saving error matlab file:%s\n',file);
+        end
+        %The command is a Java object, which save cannot store, so it is kept as JSON text.
+        %With the command and the parameters, the calculation can be run again to find the error.
+        commandJson='';
+        errorPar=[];
+        try
+            if exist('command','var') && isjava(command)
+                commandJson=char(org.json.simple.JSONValue.toJSONString(command));
+            end
+        end
+        try
+            if exist('s','var') && isfield(s,'par')
+                errorPar=s.par;
+            end
         end
         try
             save(file)

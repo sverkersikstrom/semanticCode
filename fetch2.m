@@ -310,8 +310,8 @@ function [databaseObject,validConnection] = ...
     retries = 0;
 
     try
-        % db_user='DB_USERNAME';db_password='DB_PASSWORD';
-        % url=['jdbc:mysql://DB_HOST:' 'PORT' '/stock'];
+        % db_user='root';db_password='root';
+        % url=['jdbc:mysql://localhost:' '3306' '/stock'];
         databaseObject = database(databaseName,db_user,db_password,driver,url);
 
         % set(databaseObject,'AutoCommit','off')        
